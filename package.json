@@ -66,12 +66,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/dtz-nova-x-md.git"
+    "url": "git+https://github.com/alpha-x-team-ofc/DTZ-NOVA-X-MD-V.1.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/dtz-nova-x-md/issues"
+    "url": "https://github.com/alpha-x-team-ofc/DTZ-NOVA-X-MD-V.1/issues"
   },
-  "homepage": "https://github.com/yourusername/dtz-nova-x-md#readme",
+  "homepage": "https://github.com/alpha-x-team-ofc/DTZ-NOVA-X-MD-V.1#readme",
   "os": [
     "linux",
     "darwin",
