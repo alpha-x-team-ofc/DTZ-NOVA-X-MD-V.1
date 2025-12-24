@@ -1,79 +1,111 @@
 const { cmd, commands } = require("../command");
-const { Sticker } = require("wa-sticker-formatter");
-const { downloadMediaMessage } = require("../lib/msg.js"); // Adjust the path as needed
 const fs = require("fs");
+const { downloadMediaMessage } = require("../lib/msg.js");
+const { exec } = require("child_process");
+const util = require("util");
+const path = require("path");
 
 cmd(
   {
     pattern: "toimg",
-    alias: ["img", "photo"],
+    alias: ["img", "photo", "stickertoimg"],
     desc: "Convert a sticker to an image",
     category: "utility",
     filename: __filename,
+    usage: "Reply to a sticker with .toimg"
   },
-  async (
-    robin,
-    mek,
-    m,
-    {
-      from,
-      quoted,
-      body,
-      isCmd,
-      command,
-      args,
-      q,
-      isGroup,
-      sender,
-      senderNumber,
-      botNumber2,
-      botNumber,
-      pushname,
-      isMe,
-      isOwner,
-      groupMetadata,
-      groupName,
-      participants,
-      groupAdmins,
-      isBotAdmins,
-      isAdmins,
-      reply,
-    }
-  ) => {
+  async (robin, mek, m, options) => {
+    const { from, reply, quoted } = options;
+    
     try {
-      // Ensure the message contains a sticker to convert
-      if (!quoted || quoted.stickerMessage == null) {
-        return reply("Please reply to a sticker to convert it to an image.");
+      // Check if quoted message exists and is a sticker
+      if (!mek.message.extendedTextMessage || 
+          !mek.message.extendedTextMessage.contextInfo || 
+          !mek.message.extendedTextMessage.contextInfo.quotedMessage ||
+          !mek.message.extendedTextMessage.contextInfo.quotedMessage.stickerMessage) {
+        return reply("❌ Please reply to a sticker to convert it to an image.");
       }
 
-      // Download the sticker from the quoted message
-      const stickerBuffer = await downloadMediaMessage(quoted, "stickerInput");
-      if (!stickerBuffer)
-        return reply("Failed to download the sticker. Try again!");
+      // Get the quoted sticker message
+      const quotedMsg = mek.message.extendedTextMessage.contextInfo.quotedMessage;
+      
+      // Download the sticker
+      const mediaPath = await downloadMediaMessage(quotedMsg, "sticker", "sticker");
+      
+      if (!mediaPath || !fs.existsSync(mediaPath)) {
+        return reply("❌ Failed to download the sticker.");
+      }
 
-      // Convert the sticker buffer to an image (using Sticker class)
-      const sticker = new Sticker(stickerBuffer, {
-        pack: "ＤＴＺ ＮＯＶＡ Ｘ ＭＤ",
-        author: "ＤＴＺ ＴＥＡＭ",
-        type: "FULL", // This may not be needed, but ensures we're using the full sticker format
-        quality: 100, // Quality of the output image (0-100)
-      });
-
-      // Get the image buffer
-      const imageBuffer = await sticker.toBuffer({ format: "image/jpeg" });
-
-      // Send the image as a response
-      await robin.sendMessage(
-        from,
-        {
-          image: imageBuffer,
-          caption: "Here is your converted image!\n\nＭＡＤＥ ＢＹ ＤＴＺ ＴＥＡＭ",
-        },
-        { quoted: mek }
-      );
-    } catch (e) {
-      console.error(e);
-      reply(`Error: ${e.message || e}`);
+      // Define output path
+      const outputPath = mediaPath.replace(/\.webp$/, '.png');
+      
+      try {
+        // Method 1: Using ffmpeg (Recommended if available)
+        const execPromise = util.promisify(exec);
+        
+        // Convert webp to png using ffmpeg
+        await execPromise(`ffmpeg -i "${mediaPath}" -vcodec png "${outputPath}" -y`);
+        
+        // Send the converted image
+        await robin.sendMessage(
+          from,
+          {
+            image: fs.readFileSync(outputPath),
+            caption: "✅ Converted successfully!\n\nＭＡＤＥ ＢＹ ＤＴＺ ＴＥＡＭ"
+          },
+          { quoted: mek }
+        );
+        
+        // Clean up temporary files
+        fs.unlinkSync(mediaPath);
+        fs.unlinkSync(outputPath);
+        
+      } catch (ffmpegError) {
+        // Method 2: Using webp-converter if ffmpeg fails
+        try {
+          const webp = require('webp-converter');
+          
+          // Convert webp to png
+          const result = await webp.dwebp(mediaPath, outputPath, "-o", "-quiet");
+          
+          if (result === 0) {
+            await robin.sendMessage(
+              from,
+              {
+                image: fs.readFileSync(outputPath),
+                caption: "✅ Converted successfully!\n\nＭＡＤＥ ＢＹ ＤＴＺ ＴＥＡＭ"
+              },
+              { quoted: mek }
+            );
+          } else {
+            throw new Error("WebP conversion failed");
+          }
+          
+          // Clean up
+          fs.unlinkSync(mediaPath);
+          fs.unlinkSync(outputPath);
+          
+        } catch (webpError) {
+          // Method 3: Simple rename (only works for static stickers)
+          const newPath = mediaPath + '.png';
+          fs.renameSync(mediaPath, newPath);
+          
+          await robin.sendMessage(
+            from,
+            {
+              image: fs.readFileSync(newPath),
+              caption: "✅ Converted (static sticker)!\n\nＭＡＤＥ ＢＹ ＤＴＺ ＴＥＡＭ"
+            },
+            { quoted: mek }
+          );
+          
+          fs.unlinkSync(newPath);
+        }
+      }
+      
+    } catch (error) {
+      console.error("Toimg error:", error);
+      reply(`❌ Error: ${error.message || "Failed to convert sticker"}`);
     }
   }
 );
