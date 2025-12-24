@@ -1,15 +1,15 @@
 
 
-# ᴅᴀʀᴋ ɴᴏᴠᴀ xᴍᴅ
-🤖 ᴅᴀʀᴋ ɴᴏᴠᴀ xᴍᴅ isn’t just a bot — it’s a ⚔️ weaponized WhatsApp engine, fueled by ⚙️ Baileys, powered by ⚡ speed, and loaded with 🧩 features — your next-gen assistant for 👥 group chats, 🎞️ media downloads, 🛡️ moderation, and more.
+# DTZ NOVA X MD
+🤖 DTZ NOVA X MD isn’t just a bot — it’s a ⚔️ weaponized WhatsApp engine, fueled by ⚙️ Baileys, powered by ⚡ speed, and loaded with 🧩 features — your next-gen assistant for 👥 group chats, 🎞️ media downloads, 🛡️ moderation, and more.
 
 
 <h1 align="center" style="font-weight:bold;">
-⚡ ᴅᴀʀᴋ ɴᴏᴠᴀ xᴍᴅ ⚡
+⚡ DTZ NOVA X MD ⚡
 </h1>
 
 <p align="center">
-  <img src="https://github.com/dula9x/DARK-NOVA-XMD-V1-WEB-PAIR/blob/main/images/WhatsApp%20Image%202025-08-15%20at%2017.22.03_c520eb7b.jpg?raw=true" style="border-radius: 50px; box-shadow: 0 0 20px #00ffe5, 0 0 30px #00ffe5, 0 0 40px #00ffe5;">
+  <img src="https://files.catbox.moe/fpyw9m.png" style="border-radius: 50px; box-shadow: 0 0 20px #00ffe5, 0 0 30px #00ffe5, 0 0 40px #00ffe5;">
 </p> 
 
 <p align="center">
@@ -20,18 +20,18 @@
 
 ---
 
-## 📍 What is ᴅᴀʀᴋ ɴᴏᴠᴀ xᴍᴅ
+## 📍 What is 𝐃𝐓𝐙 𝐍𝐎𝐕𝐀 𝐗 𝐌𝐃
 <p align="center">
   <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=28&duration=3000&pause=1000&color=10B981&center=true&vCenter=true&width=600&lines=Multi-device+WhatsApp+bot;Modular+plugin+architecture;Media+and+group+management+tools" alt="Typing SVG" />
 </p>
 
-**ᴅᴀʀᴋ ɴᴏᴠᴀ xᴍᴅ** is a multi-device WhatsApp bot written in Node.js using the [Baileys](https://github.com/adiwajshing/Baileys) library. It supports QR/Pairing code login, a plugin-based command system, and various media tools such as sticker conversion, song and video downloads, and group management commands.
+**𝐃𝐓𝐙 𝐍𝐎𝐕𝐀 𝐗 𝐌𝐃** is a multi-device WhatsApp bot written in Node.js using the [Baileys](https://github.com/adiwajshing/Baileys) library. It supports QR/Pairing code login, a plugin-based command system, and various media tools such as sticker conversion, song and video downloads, and group management commands.
 
 ---
 
 # GET SESSON ID 
 
-https://replit.com/@dulinanethmira6/DARK-NOVA-XMD-V1-WEB-PAIR
+
 
 GET SESSON ID AND GOTO CONFIG PASTE YOUR SESSON ID AND SAVE
 
