@@ -13,7 +13,6 @@ module.exports = {
   ALIVE_MSG: process.env.ALIVE_MSG || "Iam Alive Now!! ★𝐃𝐓𝐙 𝐍𝐎𝐕𝐀 𝐗 𝐌𝐃★ 🤭💗 ආහ් පැටියෝ කොහොමද ?🌝!\n\n🥶ＤＴＺ ＴＥＡＭ🥶",
   AUTO_READ_STATUS: process.env.AUTO_READ_STATUS || "true",
   MODE: process.env.MODE || "public",
-  AUTO_VOICE: process.env.AUTO_VOICE || "true",
   AUTO_STICKER: process.env.AUTO_STICKER || "true"
   AUTO_REPLY: process.env.AUTO_REPLY || "true"
   GEMINI_API_KEY: process.env.GEMINI_API_KEY || "AIzaSyA4NEiRrKlN6AuUGU_eaRzPjPUXAeo4ZrA",
